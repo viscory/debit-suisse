@@ -39,16 +39,16 @@ def printPath(dp, word1, word2):
                         #result = "+" + word2[j - 1] + result
                         j -= 1
 
-                elif i > 0 and j > 0 and dp[i][j] == dp[i - 1][j - 1] + 1:
-                        result = word2[j - 1] + result
-                        #result = word2[j - 1] + result
-                        i -= 1
-                        j -= 1
-
                 elif i > 0 and dp[i][j] == dp[i - 1][j] + 1:
                         #result = "-" + word1[i - 1] + result
                         result = "-" + word1[i - 1] + result
                         i -= 1
+
+                elif i > 0 and j > 0 and dp[i][j] == dp[i - 1][j - 1] + 1:
+                        result = word2[j - 1] + result
+                        #result = word2[j - 1] + result
+                        i -= 1
+                        j -= 1                
         return result
 
 def minDistance(word1, word2):

@@ -11,9 +11,10 @@ logger = logging.getLogger(__name__)
 def driver():
     data = request.get_json();
     logging.info("data sent for evaluation {}".format(data))
-    result = revisitGeometry(data.get('shapeCoordinates'), data.get('lineCoordinates'))
-    logging.info("My result :{}".format(result))
-    return json.dumps(result);
+    result = revisitGeometry(data.get('lineCoordinates'), data.get('shapeCoordinates'))
+    # print(result)
+    # logging.info("My result :{}".format(result))
+    return result;
 
 
 

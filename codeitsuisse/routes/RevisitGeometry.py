@@ -1,3 +1,23 @@
+import logging
+import json
+
+from flask import request, jsonify;
+
+from codeitsuisse import app;
+
+logger = logging.getLogger(__name__)
+
+@app.route('/revisitgeometry', methods=['POST'])
+def driver():
+    data = request.get_json();
+    logging.info("data sent for evaluation {}".format(data))
+    result = revisitGeometry(data.get('shapeCoordinates'), data.get('lineCoordinates'))
+    logging.info("My result :{}".format(result))
+    return json.dumps(result);
+
+
+
+
 def determinant(p1, p2):
     return p1[0] * p2[1] - p1[1] * p2[0]
 
@@ -32,7 +52,7 @@ def revisitGeometry(lineCoord, shapeCoord):
     pt = itIntersects(p1, p2, firstpt, q2)
     if pt:
         lst.append({"x": round(pt[0], 2), "y": round(pt[1], 2)})
-    return lst
+    return json.dumps(lst)
 
 
 if __name__ == "__main__":

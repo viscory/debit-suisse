@@ -1,4 +1,11 @@
+import logging
+import json
 
+from flask import request, jsonify;
+
+from codeitsuisse import app;
+
+logger = logging.getLogger(__name__)
 
 from ortools.linear_solver import pywraplp
 
@@ -64,10 +71,11 @@ def babylon(numberOfBooks, numberOfDays, books, days):
     else:
         return None
 
-input = {'numberOfDays': 5, 'numberOfBooks': 16, 'books': [71, 79, 57, 36, 36, 63, 67, 69, 52, 31, 61, 37, 42, 48, 69, 52], 'days': [118, 85, 105, 116, 92]}
-
+@app.route('/olympiad-of-babylon', methods=['POST'])
 def olympiad_of_babylon():
-  # input = request.get_json()
+  input = request.get_json()
+
+  logging.info("data sent for evaluation {}".format(input))
 
   numberOfBooks = input["numberOfBooks"]
   numberOfDays = input["numberOfDays"]
@@ -75,5 +83,9 @@ def olympiad_of_babylon():
   days = input["days"]
 
   answer = babylon(numberOfBooks, numberOfDays, books, days)
+
+  result={'optimalNumberOfBooks':answer}
+
+  logging.info("My result :{}".format(result))
   
-  return answer
+  return json.dumps(result)

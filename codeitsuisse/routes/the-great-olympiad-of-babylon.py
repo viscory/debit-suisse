@@ -1,18 +1,8 @@
-input = {
-    "numberOfBooks": 5,
-    "numberOfDays": 3,
-    "books": [114, 111, 41, 62, 64],
-    "days": [157, 136, 130]
-}
 
-numberOfBooks = input["numberOfBooks"]
-numberOfDays = input["numberOfDays"]
-books = input["books"]
-days = input["days"]
 
 from ortools.linear_solver import pywraplp
 
-def create_data_model():
+def create_data_model(numberOfBooks, numberOfDays, books, days):
     """Create the data for the example."""
     data = {}
     weights = [1] * numberOfBooks
@@ -27,8 +17,8 @@ def create_data_model():
     return data
 
 
-def babylon():
-    data = create_data_model()
+def babylon(numberOfBooks, numberOfDays, books, days):
+    data = create_data_model(numberOfBooks, numberOfDays, books, days)
 
     # Create the mip solver with the CBC backend.
     solver = pywraplp.Solver.CreateSolver('multiple_knapsack_mip', 'CBC')
@@ -70,7 +60,20 @@ def babylon():
                     bin_weight += data['weights'][i]
                     bin_value += data['values'][i]
             total_weight += bin_weight
-        print('Total packed weight:', total_weight)
+        return total_weight
     else:
-        print('The problem does not have an optimal solution.')
+        return None
 
+input = {'numberOfDays': 5, 'numberOfBooks': 16, 'books': [71, 79, 57, 36, 36, 63, 67, 69, 52, 31, 61, 37, 42, 48, 69, 52], 'days': [118, 85, 105, 116, 92]}
+
+def olympiad_of_babylon():
+  # input = request.get_json()
+
+  numberOfBooks = input["numberOfBooks"]
+  numberOfDays = input["numberOfDays"]
+  books = input["books"]
+  days = input["days"]
+
+  answer = babylon(numberOfBooks, numberOfDays, books, days)
+  
+  return answer

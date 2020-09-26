@@ -7,7 +7,7 @@ from codeitsuisse import app;
 
 logger = logging.getLogger(__name__)
 
-@app.route('/inventory-management', methods=['POST'])
+@app.route('/fruitbasket', methods=['POST'])
 def evaluation():
     data = request.get_json()
     result = magicalBasket(data)

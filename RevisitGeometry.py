@@ -25,14 +25,11 @@ def revisitGeometry(lineCoord, shapeCoord):
     firstpt = q1
     for i in range(len(shapeCoord) - 1):
         q2 = shapeCoord[i + 1]["x"], shapeCoord[i + 1]["y"]
-        print(p1, p2, q1, q2)
         pt = itIntersects(p1, p2, q1, q2)
-        print(pt)
         if pt:
             lst.append({"x": round(pt[0], 2), "y": round(pt[1], 2)})
         q1 = q2
     pt = itIntersects(p1, p2, firstpt, q2)
-    print(pt)
     if pt:
         lst.append({"x": round(pt[0], 2), "y": round(pt[1], 2)})
     return lst
